@@ -3,6 +3,7 @@ import { StyleSheet, Text, View,  } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Detalhes from './app/screens/Detalhes';
 import Lista from './app/screens/Lista';
+import Alterar from './app/screens/Alterar';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Lista" component={Lista}/>
         <Stack.Screen name="Detalhes" component={Detalhes}/>
+        <Stack.Screen name="Alterar" component={Alterar}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

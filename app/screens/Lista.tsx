@@ -1,4 +1,10 @@
-import { addDoc, collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -52,6 +58,10 @@ const Lista = ({ navigation }: any) => {
     }
   };
 
+  const alterarElemento = async (id: any) => {
+    navigation.navigate("Alterar", { id });
+  };
+
   return (
     <View>
       <Text>Lista</Text>
@@ -59,7 +69,6 @@ const Lista = ({ navigation }: any) => {
         title="Detalhes"
         onPress={() => navigation.navigate("Detalhes")}
       />
-
       <TextInput
         style={{ marginTop: 30, backgroundColor: "#ddd", padding: 10 }}
         value={tarefa}
@@ -78,6 +87,9 @@ const Lista = ({ navigation }: any) => {
               {tarefa.title} - {tarefa.done}
             </Text>
             <CheckBox value={tarefa.done} />
+            <TouchableOpacity onPress={() => alterarElemento(tarefa.id)}>
+              <Text>Alterar</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => excluirElemento(tarefa.id)}>
               <Text>Excluir</Text>
             </TouchableOpacity>

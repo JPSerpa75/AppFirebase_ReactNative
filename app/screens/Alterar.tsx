@@ -1,66 +1,67 @@
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { View, Button, Text, TextInput, CheckBox } from "react-native";
 import firebase, { database, firestore } from "react-native-firebase";
 import { FIRESTORE_DB } from "../../firebaseConfig";
 
-const Alterar = ({ route }: any) => {
-  const id = route.params?.id;
-  const [tarefas, setTarefas] = useState<any[]>([]);
-  const [title, setTitle] = useState("");
-  const [done, setDone] = useState();
+const Alterar = ({ navigation, route }: any) => {
+  const { id } = route.params;
+  const [tarefa, setTarefa] = useState<any>({});
 
-  /*const docRef = firebase.firestore().doc("Tarefas/"+id);
-  const teste = docRef.get().then((doc) => {
-    if (doc.exists) {
-        const data = doc.data();
-        console.log("Dados do documento:", data);
-      } else {
-        console.log("O documento não existe.");
-      }
-  });*/
+  const fetchTarefa = async () => {
+    const colecao = doc(FIRESTORE_DB, "Tarefas", id);
+    const colecaoSnapshot = await getDoc(colecao);
+    if (colecaoSnapshot.exists()) {
+      setTarefa({
+        id: colecaoSnapshot.id,
+        ...colecaoSnapshot.data(),
+      });
+    }
+  };
 
   useEffect(() => {
-    const TarefasRef = collection(FIRESTORE_DB, "Tarefas");
-    const subscriber = onSnapshot(TarefasRef, {
-      next: (snapshot) => {
-        const tarefas: any[] = [];
-        snapshot.docs.forEach((doc) => {
-          if (doc.id === id) {
-            tarefas.push({
-              id: doc.id,
-              ...doc.data(),
-            });
-          }
-        });
-        setTitle(tarefas[0].title);
-        setDone(tarefas[0].done);
-        setTarefas(tarefas);
-      },
-    });
-    return () => subscriber();
+    fetchTarefa();
   }, []);
 
-  const atualizarDados = async () => {
-    try {
-      await firestore().collection("Tarefas").doc(id).update({
-        title: title,
-        done: done,
-      });
-    } catch (error) {
-      alert("Erro!" + error);
-    }
+  const handleAtualizaTexto = (key: string, t: string) => {
+    setTarefa({
+      ...tarefa,
+      [key]: t,
+    });
+  };
+
+  const handleAtualizaDone = (key: string, t: boolean) => {
+    setTarefa({
+      ...tarefa,
+      [key]: t,
+    });
+  };
+
+  const handleUpdateTarefa = async () => {
+    const colecao = doc(FIRESTORE_DB, "Tarefas", id);
+    await updateDoc(colecao, tarefa);
+    navigation.navigate("Lista");
   };
 
   return (
     <View>
-      {tarefas.map((tarefa) => (
-        <View>
-          <TextInput value={title} onChangeText={(t) => setTitle} />
-          <CheckBox value={done} onValueChange={setDone} />
-          <Button title="Alterar" onPress={atualizarDados} />
-        </View>
-      ))}
+      <View>
+        <TextInput
+          value={tarefa.title}
+          onChangeText={(t) => handleAtualizaTexto("title", t)}
+        />
+        <CheckBox
+          value={tarefa.done}
+          onValueChange={() => handleAtualizaDone('done', !tarefa.done)}
+        />
+        <Button title="Alterar" onPress={handleUpdateTarefa} />
+      </View>
     </View>
   );
 };

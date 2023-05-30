@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Detalhes from './app/screens/Detalhes';
 import Lista from './app/screens/Lista';
 import Alterar from './app/screens/Alterar';
+import CarouselCards from './app/screens/CarouselCards';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Stack.Screen name="Lista" component={Lista}/>
         <Stack.Screen name="Detalhes" component={Detalhes}/>
         <Stack.Screen name="Alterar" component={Alterar}/>
+        <Stack.Screen name="Carrosel" component={CarouselCards}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

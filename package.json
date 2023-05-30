@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@types/react-native-snap-carousel": "^3.8.5",
     "expo": "~48.0.15",
     "expo-status-bar": "~1.4.4",
     "firebase": "^9.22.0",
@@ -19,6 +20,7 @@
     "react-native": "0.71.7",
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "~3.20.0",
+    "react-native-snap-carousel": "^4.0.0-beta.6",
     "react-native-web": "^0.18.12"
   },
   "devDependencies": {

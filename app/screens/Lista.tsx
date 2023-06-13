@@ -64,6 +64,12 @@ const Lista = ({ navigation }: any) => {
 
   return (
     <View>
+      <Text>Login com o google</Text>
+      <Button
+        title="Login"
+        onPress={() => navigation.navigate("Login")}
+      />
+
       <Text>Carrosel</Text>
       <Button
         title="Carrosel"

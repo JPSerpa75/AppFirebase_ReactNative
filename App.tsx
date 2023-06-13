@@ -5,6 +5,7 @@ import Detalhes from './app/screens/Detalhes';
 import Lista from './app/screens/Lista';
 import Alterar from './app/screens/Alterar';
 import CarouselCards from './app/screens/CarouselCards';
+import LoginGoogle from './app/screens/LoginGoogle';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="Detalhes" component={Detalhes}/>
         <Stack.Screen name="Alterar" component={Alterar}/>
         <Stack.Screen name="Carrosel" component={CarouselCards}/>
+        <Stack.Screen name="Login" component={LoginGoogle}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
